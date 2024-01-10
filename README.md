@@ -43,7 +43,7 @@ Feel free to write if the same steps didn't work for you, or how you'd do it bet
    - `EIGEN_INCLUDE_PATH /path/to/eigen/lib`
    - `Eigen3_DIR /path/to/eigen/lib`
    - `INSTALL_PATH /path/to/library/opencv/arm64`
-   - `WITH_LAPACK OFF` from this issue https://github.com/opencv/opencv/issues/7970
+   - `WITH_LAPACK OFF` from this issue https://github.com/opencv/opencv/issues/7970 (not required if adding Accelerate frame)
    - When you are done hit `c` again. This may create errors, like fat binraries for java or ANT, just hit `c` again, and see if it goes away, adding the extra modules broke the build for some reason
    - If this manages to work generate the makefile, `g`
    - Time to compile. `cmake . && make -j8 all install` -j8 means compile with 8 cores, goes much faster.
@@ -75,6 +75,7 @@ Feel free to write if the same steps didn't work for you, or how you'd do it bet
     Cocoa
     OpenCL
     Quartzcore, and maybe just Quartz
+    Accelerate (not required if not using LAPACK
     ```
 11. Go to Build settings, search for **Architecture**
 12. Under **Build Active Architecture Only** check yes if it's not already, make sure Debug and Release are also set.
