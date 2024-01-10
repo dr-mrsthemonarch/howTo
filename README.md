@@ -43,7 +43,7 @@ Feel free to write if the same steps didn't work for you, or how you'd do it bet
    - `EIGEN_INCLUDE_PATH /path/to/eigen/lib`
    - `Eigen3_DIR /path/to/eigen/lib`
    - `INSTALL_PATH /path/to/library/opencv/arm64`
-   - `WITH_LAPACK OFF` from this issue https://github.com/opencv/opencv/issues/7970 (not required if adding Accelerate frame)
+   - `WITH_LAPACK OFF` from this issue https://github.com/opencv/opencv/issues/7970 (not required if adding Accelerate frame) https://github.com/opencv/opencv/issues/8086
    - When you are done hit `c` again. This may create errors, like fat binraries for java or ANT, just hit `c` again, and see if it goes away, adding the extra modules broke the build for some reason
    - If this manages to work generate the makefile, `g`
    - Time to compile. `cmake . && make -j8 all install` -j8 means compile with 8 cores, goes much faster.
