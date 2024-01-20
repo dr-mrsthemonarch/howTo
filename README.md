@@ -91,7 +91,7 @@ Feel free to write if the same steps didn't work for you, or how you'd do it bet
 17. Do whatever other crap you want.
 18. Go to **Product -> Scheme -> Edit Scheme** Under Run, change to release and uncheck debug.
 19. Add the following code to your main.cpp, and see if it works:
-```
+```c++
 //
 //  main.cpp
 //  opencv_static_lib
