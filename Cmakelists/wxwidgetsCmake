@@ -1,0 +1,81 @@
+# Minimum CMake version required
+cmake_minimum_required(VERSION 3.26)
+
+MACRO(HEADER_DIRECTORIES return_list)
+    FILE(GLOB_RECURSE new_list *.hpp)
+    SET(dir_list "")
+    FOREACH(file_path ${new_list})
+        GET_FILENAME_COMPONENT(dir_path ${file_path} PATH)
+        SET(dir_list ${dir_list} ${dir_path})
+    ENDFOREACH()
+    LIST(REMOVE_DUPLICATES dir_list)
+    SET(${return_list} ${dir_list})
+ENDMACRO()
+# Project name and version
+project(wx_playing VERSION 1.0 LANGUAGES CXX)
+
+# Set C++ standard
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+
+# Set the output directories for binaries and libraries
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+
+# Include directories
+include_directories(/dir/to/libraries/wxwidgets/lib/wx/include/osx_cocoa-unicode-static-3.2/wx/  ${CMAKE_SOURCE_DIR}/include /dir/to/Documents/cpp_learning/libraries/wxwidgets/)
+
+# Path to wxWidgets libraries and includes
+set(wxWidgets_ROOT_DIR /dir/to/Documents/cpp_learning/libraries/wxwidgets)  # Adjust this to your wxWidgets path
+set(wxWidgets_LIB_DIR ${wxWidgets_ROOT_DIR}/lib)
+set(wxWidgets_INCLUDE_DIR ${wxWidgets_ROOT_DIR}/include/wx-3.2)
+
+# Add the source files
+set(SOURCES main.cpp drawingcanvas.cpp drawingcanvas.hpp)
+
+# Add the executable
+add_executable(wx_playing ${SOURCES})
+set_target_properties(wx_playing PROPERTIES MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_SOURCE_DIR}/Info.plist) #for retina
+
+HEADER_DIRECTORIES(header_dir_list)
+
+list(LENGTH header_dir_list header_dir_list_count)
+message(STATUS "[INFO] Found ${header_dir_list_count} header directories.")
+
+# Manually specify wxWidgets include directories
+target_include_directories(wx_playing PUBLIC ${header_dir_list} /dir/to/Documents/cpp_learning/libraries/wxwidgets/lib/wx/include/osx_cocoa-unicode-static-3.2/  ${wxWidgets_INCLUDE_DIR} )# Recursive )
+
+# Manually specify wxWidgets libraries and macOS frameworks
+target_link_libraries(wx_playing
+        -L${wxWidgets_LIB_DIR}
+        ${wxWidgets_LIB_DIR}/libwx_osx_cocoau_xrc-3.2.a
+        ${wxWidgets_LIB_DIR}/libwx_osx_cocoau_aui-3.2.a
+        ${wxWidgets_LIB_DIR}/libwx_osx_cocoau_qa-3.2.a
+        ${wxWidgets_LIB_DIR}/libwx_baseu_net-3.2.a
+        ${wxWidgets_LIB_DIR}/libwx_osx_cocoau_html-3.2.a
+        ${wxWidgets_LIB_DIR}/libwx_osx_cocoau_core-3.2.a
+        ${wxWidgets_LIB_DIR}/libwx_baseu_xml-3.2.a
+        ${wxWidgets_LIB_DIR}/libwx_baseu-3.2.a
+        -lwxtiff-3.2
+        -lwxjpeg-3.2
+        -lwxpng-3.2
+        -lwxregexu-3.2
+        -lwxscintilla-3.2
+        -lexpat
+        -lz
+        -liconv
+        -lpthread
+        "-framework IOKit"
+        "-framework Carbon"
+        "-framework Cocoa"
+        "-framework QuartzCore"
+        "-framework AudioToolbox"
+        "-framework System"
+        "-framework OpenGL"
+        "-framework WebKit"
+        "-framework Security"
+)
+
+# Add any necessary compile definitions
+target_compile_definitions(wx_playing PRIVATE _FILE_OFFSET_BITS=64 __WXOSX__ __WXOSX_COCOA__ __WXMAC__ _UNICODE)
