@@ -50,6 +50,8 @@ Feel free to write if the same steps didn't work for you, or how you'd do it bet
 16. Search for **Other Linker Flags**
     - Add the premade list from the result of `wx_config --libs`, it will show up in one line, then seperate to seperate ones, it's fine.
 17. Search for **Other C++**
+    - Add immediately `-l/Users/yourusername/Documents/some/dir/libraries/wxwidgets/lib/wx/include/osx_cocoa-unicode-static-3.2/`
+      - This above nonsense is completely and utterly needed in order to do ***anything*** at all in any IDE, it ***must** be in first place, otherwise it will completely fail!
     - Add the premake list from the result of `wx_config --cxxflags`, it will show in one line, it's fine. 
 17. Search for `clang` or `llvm`, I use clang.
     - Under c++ language detect, set to c++17 std.
