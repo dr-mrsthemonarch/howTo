@@ -1,0 +1,67 @@
+#a cmake for precompiled opencv libraries for mac, M architecture
+cmake_minimum_required(VERSION 3.10)
+
+# Project name
+project(fusionquest)
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20")
+# Set the directory for external libraries
+set(LIBRARY_DIR /Users/dr-mrsthemonarch/CLionProjects/libraries)
+
+# Include directories for header-only libraries
+include_directories(${LIBRARY_DIR}/boost)
+include_directories(${LIBRARY_DIR}/eigen-3.4.0)
+
+# OpenCV library paths
+set(OpenCV_INCLUDE_DIRS ${LIBRARY_DIR}/opencv/arm64/include/opencv4)
+set(OpenCV_LIB_DIR ${LIBRARY_DIR}/opencv/arm64/lib)
+set(OpenCV_3RDPARTY_LIB_DIR ${LIBRARY_DIR}/opencv/arm64/lib/opencv4/3rdparty)
+set(OpenCV_LIBS
+        ${OpenCV_LIB_DIR}/libopencv_core.a
+        ${OpenCV_LIB_DIR}/libopencv_photo.a
+        ${OpenCV_LIB_DIR}/libopencv_videoio.a
+        ${OpenCV_LIB_DIR}/libopencv_calib3d.a
+        ${OpenCV_LIB_DIR}/libopencv_features2d.a
+        ${OpenCV_LIB_DIR}/libopencv_dnn.a
+        ${OpenCV_LIB_DIR}/libopencv_imgcodecs.a
+        ${OpenCV_LIB_DIR}/libopencv_highgui.a
+        ${OpenCV_LIB_DIR}/libopencv_video.a
+        ${OpenCV_LIB_DIR}/libopencv_gapi.a
+        ${OpenCV_LIB_DIR}/libopencv_ml.a
+        ${OpenCV_LIB_DIR}/libopencv_objdetect.a
+        ${OpenCV_LIB_DIR}/libopencv_stitching.a
+        ${OpenCV_LIB_DIR}/libopencv_flann.a
+        ${OpenCV_LIB_DIR}/libopencv_imgproc.a
+        ${OpenCV_3RDPARTY_LIB_DIR}/liblibtiff.a
+        ${OpenCV_3RDPARTY_LIB_DIR}/liblibpng.a
+        ${OpenCV_3RDPARTY_LIB_DIR}/liblibwebp.a
+        ${OpenCV_3RDPARTY_LIB_DIR}/liblibopenjp2.a
+        ${OpenCV_3RDPARTY_LIB_DIR}/liblibprotobuf.a
+        ${OpenCV_3RDPARTY_LIB_DIR}/libIlmImf.a
+        ${OpenCV_3RDPARTY_LIB_DIR}/libade.a
+        ${OpenCV_3RDPARTY_LIB_DIR}/libzlib.a
+        ${OpenCV_3RDPARTY_LIB_DIR}/libittnotify.a
+        ${OpenCV_3RDPARTY_LIB_DIR}/libtegra_hal.a
+        ${OpenCV_3RDPARTY_LIB_DIR}/liblibjpeg-turbo.a
+        # Add other OpenCV libraries you need here
+)
+
+# Include OpenCV directories
+include_directories(${OpenCV_INCLUDE_DIRS})
+
+# Source files for the project
+set(SOURCE_FILES main.cpp)
+
+# Create the executable
+add_executable(${PROJECT_NAME} ${SOURCE_FILES})
+
+# Link against macOS frameworks
+find_library(COCOA_FRAMEWORK Cocoa)
+find_library(OPENCL_FRAMEWORK OpenCL)
+find_library(ACCELERATE_FRAMEWORK Accelerate)
+
+target_link_libraries(fusionquest ${COCOA_FRAMEWORK})
+target_link_libraries(fusionquest ${OPENCL_FRAMEWORK})
+target_link_libraries(fusionquest ${ACCELERATE_FRAMEWORK})
+
+# Link the libraries to the executable
+target_link_libraries(${PROJECT_NAME} ${OpenCV_LIBS})
