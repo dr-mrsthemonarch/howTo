@@ -1,4 +1,4 @@
-Here is a guide to setup geant4 for macOS and Clion.
+# Here is a guide to setup geant4 for macOS and Clion.
 
 First setup macport dependencies
 
