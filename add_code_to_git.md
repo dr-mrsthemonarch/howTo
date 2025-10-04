@@ -63,7 +63,9 @@ If git push is rejected (remote already has commits), choose one:
 Merge remote into local (safe, preserves both histories):
 ```
 git pull origin main --allow-unrelated-histories
-# resolve conflicts if any, then:
+# resolve conflicts if any, for example, this will delete everything remotely and replace it with your code:
+git push -u origin main --force-with-lease
+
 git add .
 git commit   # finish the merge commit if necessary
 git push -u origin main
