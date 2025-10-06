@@ -1,6 +1,6 @@
 # Here is a guide to setup geant4 for macOS and Clion/cmake
 
-First setup macport dependencies
+First setup macport dependencies, you may choose between qt5 or qt6, but ensure to change the comile command below, if you use qt6
 
 ```
 sudo port install qt5
