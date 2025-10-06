@@ -20,7 +20,7 @@ mv geant4 geant4_source
 cd geant4_v11_build
 ```
 Now you can setup the cmake file with the following code. This will enable qt5 and multithreading and set the program to release.
-If you want to use QT6, you only need to change ```DGEANT4_USE_QT_QT5=ON``` to ```DGEANT4_USE_QT_QT6=ON```
+If you want to use QT6, you only need to change ```DGEANT4_USE_QT_QT5=ON``` to ```DGEANT4_USE_QT_QT6=ON``` and ```-DQT_QMAKE_EXECUTABLE=/opt/local/libexec/qt5/bin/qmake``` to ```-DQT_QMAKE_EXECUTABLE=/opt/local/libexec/qt6/bin/qmake```
 ```
 cmake -DCMAKE_INSTALL_PREFIX=/path/to/libraries/geant4/geant4_v11/geant4_v11_install  -DCMAKE_BUILD_TYPE=Release -DGEANT4_BUILD_MULTITHREADED=ON -DGEANT4_INSTALL_DATA=ON -DGEANT4_FORCE_QT4=OFF -DGEANT4_USE_QT_QT5=ON -DCMAKE_PREFIX_PATH="/opt/local/libexec/qt5" -DQt5_DIR=/opt/local/libexec/qt5/lib/cmake/Qt5 -DQT_QMAKE_EXECUTABLE=/opt/local/libexec/qt5/bin/qmake -DGEANT4_USE_QT=ON -DGEANT4_USE_GDML=ON -DGEANT4_USE_SYSTEM_EXPAT=ON -DGEANT4_USE_SYSTEM_ZLIB=ON -DGEANT4_BUILD_EXAMPLES=ON ../geant4_v11_source
 ```
